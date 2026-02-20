@@ -1,1 +1,2 @@
-uv run mcp_server.py
+source .venv/bin/activate
+python3 mcp_server.py
