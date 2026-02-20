@@ -1,0 +1,54 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+.eggs/
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# PyTest
+.pytest_cache/
+
+# IDEs
+.vscode/
+.idea/
+
+# Environments
+.env
+*.env
+
+# MyPy
+.mypy_cache/
+
+# Pyre
+.pyre/
+
+# Logs
+*.log
+logs/
+
+# MacOS
+.DS_Store

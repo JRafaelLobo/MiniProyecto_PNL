@@ -57,6 +57,27 @@ ollama pull nomic-embed-text
 ./setup.sh
 ```
 
+## ⚡ Ejecutar
+
+```bash
+./start.sh
+```
+
+## 📁 Estructura del Proyecto
+```
+.
+├── Documentos                     # PDFs y material de referencia
+│   └── CobiT4_Espanol.pdf         # Documento base del proyecto
+├── README.md                      # Documentación principal
+├── TestingFiles                   # Área de pruebas, prototipos y versiones previas
+├── chroma_db                      # Base de datos principal del proyecto
+├── ingest_pdf.py                  # Ingesta del PDF a vectores
+├── mcp_server.py                  # Servidor MCP del proyecto
+├── query_chromadb.py              # Consultas a la base vectorial
+├── requirements.txt               # Dependencias globales del proyecto
+├── setup.sh                       # Script de instalación / setup principal
+└── start.sh                       # Script para iniciar el sistema
+```
 
 ## 🎯 Requisitos del proyecto
 - Extraer texto PDF
