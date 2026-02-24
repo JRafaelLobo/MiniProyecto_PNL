@@ -7,6 +7,7 @@ import chromadb
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 import requests
 import ollama
+import glob 
 
 import os
 
@@ -60,7 +61,7 @@ def store_in_chromadb(chunks, metadata, pdf_name):
             if i % 5 == 0:
                 print(f"   Procesados {i}/{len(chunks)}...")
         except Exception as e:
-            print(f"   Error en trozo {i}: {e}")
+            print(f" Error en trozo {i}: {e}")
 
     if not all_ids:
         print("ERROR: No se generó ningún embedding. ¿Ollama está corriendo?")
@@ -74,19 +75,32 @@ def store_in_chromadb(chunks, metadata, pdf_name):
     )
     print(f"¡ÉXITO! Se guardaron {len(all_ids)} elementos en ChromaDB.")
 
-def ingest_pdf(pdf_path='./Documentos/CobiT4_Espanol.pdf'):
-    if not os.path.exists(pdf_path):
-        print(f"ERROR: El archivo no existe en {pdf_path}")
-        return
 
-    print(f"--- Iniciando diagnóstico ---")
-    text, metadata = extract_text_and_metadata(pdf_path)
+def ingest_pdf(folder_path='./Documentos'):
+    pdf_files = glob.glob(os.path.join(folder_path, "*.pdf"))
     
-    print(f"1. Caracteres extraídos del PDF: {len(text)}")
-    if len(text) < 10:
-        print("ERROR: El PDF no tiene texto extraíble. ¿Es una imagen escaneada?")
+    if not pdf_files:
+        print(f"No se encontraron archivos PDF en la carpeta: {folder_path}")
         return
 
-    chunks = chunk_text(text)
-    print(f"2. Número de trozos (chunks) creados: {len(chunks)}")
-    store_in_chromadb(chunks, metadata, os.path.basename(pdf_path))
+    print(f"Se encontraron {len(pdf_files)} archivos para procesar.")
+
+    for pdf_path in pdf_files:
+        pdf_name = os.path.basename(pdf_path)
+        print(f"\n--- Procesando: {pdf_name} ---")
+        
+        try:
+            text, metadata = extract_text_and_metadata(pdf_path)
+            
+            if len(text) < 10:
+                print(f"Saltando {pdf_name}: No tiene texto extraíble.")
+                continue
+            
+           
+            chunks = chunk_text(text)
+            print(f"Texto limpio y dividido en {len(chunks)} trozos.")
+
+            store_in_chromadb(chunks, metadata, pdf_name)
+            
+        except Exception as e:
+            print(f"Error procesando {pdf_name}: {e}")

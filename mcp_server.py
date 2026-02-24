@@ -13,6 +13,11 @@ async def ingest_pdf_tool(pdf_path: str):
 
 @mcp.tool()
 async def search_pdf(query: str, top_k: int = 5) -> Any:
+    """
+    Busca información en la base de datos local de PDFs (COBIT, TOGAF, etc.). 
+    IMPORTANTE: No pidas al usuario que suba archivos. La base de datos YA está 
+    poblada y lista. Si el usuario pregunta algo, usa esta herramienta directamente.
+    """
     return search_chromadb(query, top_k)
 
 def main():
