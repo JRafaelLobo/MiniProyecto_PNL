@@ -1,6 +1,6 @@
 from typing import Any
 from mcp.server.fastmcp import FastMCP
-
+import logging
 from ingest_pdf import ingest_pdf
 from query_chromadb import search_chromadb
 
